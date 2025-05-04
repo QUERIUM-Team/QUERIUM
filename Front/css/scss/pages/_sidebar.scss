@@ -1,0 +1,191 @@
+/** @format */
+
+// ! Import Variables
+@use "../variables/colors" as *;
+@use "../variables/times" as *;
+
+// ! Import Functions
+@use "../helpers/animation" as *;
+
+.sidebar {
+  width: 250px;
+  box-shadow: 0 0 10px #023336;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: $main-color !important;
+
+  @media (max-width: 1200px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 767px) {
+    width: 58px;
+    padding: 10px;
+  }
+
+  .holder {
+    width: 180px;
+    height: 100vh;
+
+    .logo-of-website {
+      margin-top: 20px;
+
+      @media(max-width: 992px) {
+        margin-top: 10px;
+      }
+
+      img {
+        width: 60px;
+        margin-bottom: 20px;
+
+        @media(max-width: 992px) {
+          width: 50px;
+          margin-top: 10px;
+        }
+
+        @media(max-width: 767px) {
+          margin-top: -5px;
+          width: 36px;
+        }
+      }
+
+      .data {
+        display: inline-block;
+        padding-left: 10px;
+
+        h1 {
+          font-size: 15px;
+          color: white;
+          margin-top: -10px;
+        }
+        
+        h3 {
+          font-size: 10px;
+          color: white;
+          margin-top: -10px;
+        }
+
+        @media(max-width: 992px) {
+          h1 {
+            font-size: 14px;
+          }
+
+          h3 {
+            font-size: 10px;
+          }
+        }
+
+        @media(max-width: 767px) {
+          h1, h3 {
+            display : none
+          }
+        }
+      }
+    }
+    .links {
+      margin-top: 30px;
+
+      @media (max-width: 767px) {
+        margin-top: -30px;
+      }
+
+      ul {
+        margin-top: 30px !important;
+        li {
+          margin-left: -3px;
+
+          a {
+            display: block;
+            padding: 18px 26px;
+            transition: 0.3s;
+            margin-bottom: 15px;
+            transition: $transition_time3;
+            border-radius: 8px;
+            font-weight: 600;
+            color: white;
+
+            
+            @media (max-width: 767px) {
+              padding-left: 10px;
+              padding-right: 10px;
+              width: fit-content;
+            }
+
+            &:hover,
+            &.active {
+              background-color: #fff;
+              color: $main-color;
+            }
+
+            svg {
+              font-size: 18px;
+            }
+
+            span {
+              font-size: 14px;
+              margin-left: 10px;
+              transition: $transition_time3;
+
+              @media (max-width: 767px) {
+                display: none;
+              }
+            }
+          }
+
+          &:hover {
+            svg {
+              color: $main-color !important;
+            }
+            span {
+              transform: translateX(10px);
+              color: black !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .log-out {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    margin-left: 30px;
+
+    @media (max-width: 767px) {
+      margin-left: 10px;
+    }
+
+    svg {
+      transform: rotate(180deg);
+      margin-right: 2px;
+    }
+
+    span {
+      font-size: 17px;
+      font-weight: bold;
+
+      a {
+        color: $red-color;
+
+        @media (max-width: 767px) {
+          display: none;
+        }
+      }
+
+      a:hover {
+        color: $red-color !important;
+      }
+    }
+
+    &:hover {
+      svg {
+        animation: left-right $transition_time6 infinite;
+        -webkit-animation: left-right $transition_time6 infinite;
+      }
+      a {
+        color: red;
+      }
+    }
+  }
+}

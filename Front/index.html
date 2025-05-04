@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <!-- ! Page Title Icon -->
+  <link rel="icon" href="images/chart-line-solid.svg">
+  <!-- ! Bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- ! Main Template CSS File -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/framework.css">
+  <!-- ! File Of Animations -->
+  <link rel="stylesheet" href="css/aos.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css">
+  <!-- ! Render All Elements Normally -->
+  <link rel="stylesheet" href="css/normalize.min.css">
+  <!-- ! Font Awesome Library -->
+  <link rel="stylesheet" href="css/all.min.css">
+  <!-- ! Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap">
+  <script>
+    window.onload = function () {
+      AOS.init();
+    };
+  </script>
+</head>
+
+<body>
+  <div class="dashboard d-flex">
+    <!-- ! Start Sidebar -->
+    <div class="sidebar bg-white position-relative">
+      <div class="holder position-fixed">
+        <div class="logo-of-website">
+          <img src="images/avatar.png" alt="" class="logo" />
+          <div class="data">
+            <h1>QUERIUM</h1>
+            <h3>let's start the journey.</h3>
+          </div>
+        </div>
+        <div class="links">
+          <ul>
+            <li>
+              <a class="active d-flex align-items-center" href="home.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex align-items-center" href="students.html">
+                <i class="fa-regular fa-user"></i>
+                <span>Students</span>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex align-items-center" href="upload.html">
+                <i class="fa-solid fa-upload"></i>
+                <span>Upload</span>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex align-items-center" href="approve.html">
+                <i class="fa-solid fa-thumbs-up"></i>
+                <span>Approve</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="log-out">
+          <span>
+            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #e10000;"></i>
+            <a href="">Log out</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- ! End Sidebar -->
+    <!-- ! Start Content -->
+    <div class="content">
+      <!-- ! Start Header -->
+      <div class="header bg-white d-flex justify-content-between align-items-center">
+        <div class="search position-relative">
+          <input type="text" id="keywordInput" placeholder="Search a Lecture Name, Topic" name="keyword">
+          <i class="fa-solid fa-search"></i>
+        </div>
+        <div class="profile">
+          <a href="profile.html">
+            <img src="images/avatar.png" alt="" />
+            <span>QUERIUM</span>
+          </a>
+        </div>
+      </div>
+      <!-- ! End Header -->
+      <!-- ! Start Main Content -->
+      <div class="main-content">
+        <div class="contai">
+          <div class="buttons">
+            <button class="all filter active" data-filter=".all">All Courses</button>
+            <button class="vision filter" data-filter=".vision">Computer Vision</button>
+            <button class="ai filter" data-filter=".ai">AI</button>
+            <button class="software filter" data-filter=".software">Software Engineer</button>
+            <button class="network filter" data-filter=".network">Network Engineer</button>
+          </div>
+          <div class="files-page">
+            <div class="statistics mega">
+              <h4>Files Statistics</h4>
+              <div class="d-flex align-items-center data">
+                <i class="fa-regular fa-file-pdf fa-lg blue c-blue icon"></i>
+                <div class="info">
+                  <span>PDF Files</span>
+                  <span class="num">130</span>
+                </div>
+                <div class="size">6.5GB</div>
+              </div>
+              <div class="d-flex align-items-center data">
+                <i class="fa-regular fa-images fa-lg green c-green icon"></i>
+                <div class="info">
+                  <span>Images</span>
+                  <span class="num">115 Files</span>
+                </div>
+                <div class="size">3.5GB</div>
+              </div>
+              <div class="d-flex align-items-center data">
+                <i class="fa-regular fa-file-word fa-lg red c-red red icon"></i>
+                <div class="info">
+                  <span>Word Files</span>
+                  <span class="num">110 Files</span>
+                </div>
+                <div class="size">3.2GB</div>
+              </div>
+              <div class="d-flex align-items-center data">
+                <i class="fa-solid fa-file-csv fa-lg orange c-orange icon"></i>
+                <div class="info">
+                  <span>CSV Files</span>
+                  <span class="num">99 Files</span>
+                </div>
+                <div class="size">2.9GB</div>
+              </div>
+              <a class="upload d-block" href="#">
+                <i class="fa-solid fa-angles-up"></i>
+                Upload
+              </a>
+            </div>
+            <div class="container-fluid">
+            <div class="files-content row">
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all vision">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 1</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all ai">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 2</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all software">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 3</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all ai">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 4</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all network">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 5</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all vision">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 8</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 7</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all network">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 8</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all ai">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 9</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all software">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 10</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all ai">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 11</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all ai">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 12</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all network">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 13</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all software">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 14</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+              <div class="file mega col-lg-3 col-md-4 col-sm-6 col-6 all vision">
+                <div class="icon">
+                  <img class="mt-15 mb-15" src="images/listing.jpg" alt="" />
+                </div>
+                <div class="name">Lecture 15</div>
+                <p class="user">test test</p>
+                <div class="info d-flex justify-content-between align-items-center mt-10 pt-10 fs-13 c-grey">
+                  <button>View All Questions</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+  <!-- ! End Content -->
+  <!---------------------------------------------------------------------------->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <!-- * This Render Icon As SVG... -->
+  <script src="js/all.min.js"></script>
+  <!-- ! JavaScript File -->
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
