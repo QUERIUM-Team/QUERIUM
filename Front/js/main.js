@@ -57,19 +57,30 @@ document.addEventListener("DOMContentLoaded", function () {
   tableBody.addEventListener("click", function (event) {
     const target = event.target;
 
-    // Handle approve button
+    // Toggle Approve button
     if (target.closest(".approve-btn")) {
       const row = target.closest("tr");
-      row.style.backgroundColor = "#d4edda"; // Bootstrap success background
-      row.querySelector(".status").textContent = "Approved";
-      row.querySelector(".status").classList.remove("pending");
-      row.querySelector(".status").classList.add("approved");
+      const statusSpan = row.querySelector(".status");
+
+      if (statusSpan.classList.contains("pending")) {
+        // Mark as approved
+        statusSpan.textContent = "Approved";
+        statusSpan.classList.remove("pending");
+        statusSpan.classList.add("approved");
+      } else {
+        // Revert to pending
+        row.style.backgroundColor = "";
+        statusSpan.textContent = "Pending";
+        statusSpan.classList.remove("approved");
+        statusSpan.classList.add("pending");
+      }
     }
 
-    // Handle reject button
+    // Reject button
     if (target.closest(".reject-btn")) {
       const row = target.closest("tr");
-      row.remove(); // Remove the entire table row
+      row.remove();
     }
   });
 });
+
