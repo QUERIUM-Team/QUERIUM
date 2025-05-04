@@ -56,49 +56,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
   tableBody.addEventListener("click", function (event) {
     const target = event.target;
+    const row = target.closest("tr");
 
-    // Toggle Approve button
+    if (!row) return;
+
+    const statusSpan = row.querySelector(".status");
+
+    // Approve toggle
     if (target.closest(".approve-btn")) {
-      const row = target.closest("tr");
-      const statusSpan = row.querySelector(".status");
+      const currentStatus = statusSpan.classList.contains("approved")
+        ? "approved"
+        : statusSpan.classList.contains("pending")
+        ? "pending"
+        : statusSpan.classList.contains("rejected")
+        ? "rejected"
+        : statusSpan.classList.contains("completed")
+        ? "completed"
+        : "";
 
-      if (statusSpan.classList.contains("pending")) {
-        // Mark as approved
+      const isNowApproved = statusSpan.classList.contains("approved");
+
+      if (!isNowApproved) {
+        // Save current class to data-status
+        row.dataset.lastStatus = currentStatus;
+
+        // Apply approved style
         statusSpan.textContent = "Approved";
-        statusSpan.classList.remove("pending");
-        statusSpan.classList.add("approved");
-      } else {
-        // Revert to pending
+        statusSpan.className = "status approved";
+        } else {
+        // Revert to previous state
+        const lastStatus = row.dataset.lastStatus || "pending";
+        statusSpan.textContent = capitalizeFirstLetter(lastStatus);
+        statusSpan.className = "status " + lastStatus;
         row.style.backgroundColor = "";
-        statusSpan.textContent = "Pending";
-        statusSpan.classList.remove("approved");
-        statusSpan.classList.add("pending");
       }
     }
 
-    // Reject button
+    // Reject action
     if (target.closest(".reject-btn")) {
-      const row = target.closest("tr");
       row.remove();
     }
   });
+
+  function capitalizeFirstLetter(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-  const answerCards = document.querySelectorAll(".answer-card");
-
-  answerCards.forEach((card) => {
-    const options = card.querySelectorAll("ul li");
-
-    options.forEach((option) => {
-      option.addEventListener("click", function () {
-        // Remove 'active' from all siblings
-        options.forEach((opt) => opt.classList.remove("active"));
-
-        // Add 'active' to clicked one
-        this.classList.add("active");
-      });
-    });
-  });
-});
-
