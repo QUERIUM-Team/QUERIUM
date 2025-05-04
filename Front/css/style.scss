@@ -15,6 +15,7 @@
 @use "scss/pages/dashboard";
 @use "scss/pages/settings";
 @use "scss/pages/files";
+@use "scss/pages/approved";
 
 // ! Import Functions
 @use "scss/helpers/animation"as *;
@@ -22,6 +23,8 @@
 .content {
   overflow: hidden;
   width: 100%;
+  position: relative;
+  z-index: 20;
 }
 
 .header {

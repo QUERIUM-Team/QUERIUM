@@ -50,3 +50,26 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const tableBody = document.getElementById("pdfTableBody");
+
+  tableBody.addEventListener("click", function (event) {
+    const target = event.target;
+
+    // Handle approve button
+    if (target.closest(".approve-btn")) {
+      const row = target.closest("tr");
+      row.style.backgroundColor = "#d4edda"; // Bootstrap success background
+      row.querySelector(".status").textContent = "Approved";
+      row.querySelector(".status").classList.remove("pending");
+      row.querySelector(".status").classList.add("approved");
+    }
+
+    // Handle reject button
+    if (target.closest(".reject-btn")) {
+      const row = target.closest("tr");
+      row.remove(); // Remove the entire table row
+    }
+  });
+});

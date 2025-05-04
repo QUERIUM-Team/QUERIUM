@@ -1,0 +1,119 @@
+/** @format */
+
+// ! Import Variables
+@use "../variables/colors"as *;
+@use "../variables/times"as *;
+
+// ! Import Functions
+@use "../helpers/animation"as *;
+
+// ! Import Mixins
+@use "../helpers/mixin"as *;
+
+.content-approve {
+  padding: 50px;
+
+  @media(max-width: 1400px) {
+    padding: 40px;
+  }
+  @media(max-width: 1200px) {
+    padding: 30px;
+  }
+  @media(max-width: 992px) {
+    padding: 20px;
+  }
+  @media(max-width: 767px) {
+    padding: 10px;
+  }
+  
+    .table {
+      color: $main-color;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: white;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+
+      h2 {
+        font: {
+          weight: 700;
+          size: 20px;
+        }
+        margin-bottom: 25px;
+      }
+
+      .pending {
+        color: rgb(248, 205, 14);
+      }
+      .accepted {
+        color: green;
+      }
+      .rejected {
+        color: red;
+      }
+      .approved {
+        color: green;
+      }
+      .completed {
+        color: #00b894;
+      }
+
+      @media (max-width: 767px) {
+        margin-top: 10px;
+      }
+
+      .responsive-table {
+        margin-top: 20px;
+        overflow-x: scroll;
+
+        table {
+          font-size: 15px;
+          font-weight: 500;
+          min-width: 1000px;
+          border-spacing: 0;
+          width: 100%;
+
+          thead {
+            background-color: #eee;
+            border: 1px solid #eee;
+
+            th {
+              padding: 15px;
+            }
+          }
+
+          tbody {
+            border: none;
+
+            tr {
+              &:hover td {
+                background-color: #faf7f7;
+              }
+
+              td {
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+                border-left: 1px solid #eee;
+                transition: $transition_time3;
+                -webkit-transition: $transition_time3;
+                -moz-transition: $transition_time3;
+                -ms-transition: $transition_time3;
+                -o-transition: $transition_time3;
+
+                &:last-child {
+                  border-right: 1px solid #eee;
+                }
+
+                button {
+                  margin-left: 15px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}

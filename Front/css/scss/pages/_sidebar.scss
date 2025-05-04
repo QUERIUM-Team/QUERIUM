@@ -13,6 +13,8 @@
   padding: 20px;
   min-height: 100vh;
   background-color: $main-color !important;
+  position: relative;
+  z-index: 1;
 
   @media (max-width: 1200px) {
     padding: 10px;

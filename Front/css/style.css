@@ -276,6 +276,8 @@ body.dark::-webkit-scrollbar-track {
   padding: 20px;
   min-height: 100vh;
   background-color: #023336 !important;
+  position: relative;
+  z-index: 1;
 }
 @media (max-width: 1200px) {
   .sidebar {
@@ -913,6 +915,8 @@ body.dark::-webkit-scrollbar-track {
   background-color: #f1f2f6;
 }
 .dashboard .buttons {
+  position: relative;
+  z-index: 9999;
   padding-top: 30px;
   padding-left: 40px;
 }
@@ -1001,7 +1005,7 @@ body.dark::-webkit-scrollbar-track {
   background-color: white;
   border-radius: 10px;
   font-weight: 500;
-  margin-left: 10px;
+  margin-left: 18px;
   min-width: 260px;
 }
 @media (max-width: 767px) {
@@ -1200,7 +1204,7 @@ body.dark::-webkit-scrollbar-track {
   background-color: #023336;
   color: white;
   font-size: 15px;
-  padding: 7px 26px;
+  padding: 12px 26px;
   font-weight: 500;
   border: none;
   outline: none;
@@ -1226,9 +1230,113 @@ body.dark::-webkit-scrollbar-track {
 }
 
 /** @format */
+/** @format */
+.content-approve {
+  padding: 50px;
+}
+@media (max-width: 1400px) {
+  .content-approve {
+    padding: 40px;
+  }
+}
+@media (max-width: 1200px) {
+  .content-approve {
+    padding: 30px;
+  }
+}
+@media (max-width: 992px) {
+  .content-approve {
+    padding: 20px;
+  }
+}
+@media (max-width: 767px) {
+  .content-approve {
+    padding: 10px;
+  }
+}
+.content-approve .table {
+  color: #023336;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.content-approve .table h2 {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+.content-approve .table .pending {
+  color: rgb(248, 205, 14);
+}
+.content-approve .table .accepted {
+  color: green;
+}
+.content-approve .table .rejected {
+  color: red;
+}
+.content-approve .table .approved {
+  color: green;
+}
+.content-approve .table .completed {
+  color: #00b894;
+}
+@media (max-width: 767px) {
+  .content-approve .table {
+    margin-top: 10px;
+  }
+}
+.content-approve .table .responsive-table {
+  margin-top: 20px;
+  overflow-x: scroll;
+}
+.content-approve .table .responsive-table table {
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 1000px;
+  border-spacing: 0;
+  width: 100%;
+}
+.content-approve .table .responsive-table table thead {
+  background-color: #eee;
+  border: 1px solid #eee;
+}
+.content-approve .table .responsive-table table thead th {
+  padding: 15px;
+}
+.content-approve .table .responsive-table table tbody {
+  border: none;
+}
+.content-approve .table .responsive-table table tbody tr:hover td {
+  background-color: #faf7f7;
+}
+.content-approve .table .responsive-table table tbody tr td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  border-left: 1px solid #eee;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+.content-approve .table .responsive-table table tbody tr td:last-child {
+  border-right: 1px solid #eee;
+}
+.content-approve .table .responsive-table table tbody tr td button {
+  margin-left: 15px;
+}
+
+/** @format */
 .content {
   overflow: hidden;
   width: 100%;
+  position: relative;
+  z-index: 20;
 }
 
 .header {
