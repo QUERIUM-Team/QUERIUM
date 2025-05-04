@@ -10,7 +10,7 @@
 // ! Import Mixins
 @use "../helpers/mixin"as *;
 
-.container-fluid {
+.container-fluid.log-out {
   height: 100vh;
   background: url("../../../images/loginBG.png") no-repeat !important;
   background-size: cover !important;
@@ -39,7 +39,7 @@
       box-shadow: 0 0 0.5rem $shadow-color;
     }
 
-    input {
+    input, button {
       width: 400px;
       height: 40px;
       border-radius: 6px;
