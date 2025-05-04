@@ -1,0 +1,167 @@
+/** @format */
+
+// ! Import Variables
+@use "../variables/colors"as *;
+@use "../variables/times"as *;
+
+// ! Import Functions
+@use "../helpers/animation"as *;
+
+// ! Import Mixins
+@use "../helpers/mixin"as *;
+
+.upload-1 {
+  padding: 50px;
+
+  @media(max-width: 1400px) {
+    padding: 40px;
+  }
+
+  @media(max-width: 1200px) {
+    padding: 30px;
+  }
+
+  @media(max-width: 992px) {
+    padding: 20px;
+  }
+
+  @media(max-width: 767px) {
+    padding: 10px;
+  }
+}
+
+.container-fluid.numbers {
+  .holder {
+    display: flex;
+    align-items: center;
+  }
+
+  .number {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid #1F7A57;
+    font-size: 18px;
+    font-weight: 700;
+    color: $main-color;
+    background-color: white;
+  }
+
+  .data {
+    margin-left: 15px;
+    font-weight: 700;
+    color: $main-color;
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    h4 {
+      font-size: 12px;
+      color: gray;
+      font-weight: 550;
+    }
+  }
+
+  .data1 {
+    width: 100%;
+
+    h4 {
+      position: relative;
+      width: 100%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 64%;
+        left: 27%;
+        width: 75%;
+        height: 2px;
+        background-color: #ccc;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .data2 {
+    width: 100%;
+
+    h4 {
+      position: relative;
+      width: 100%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 64%;
+        left: 19%;
+        width: 85%;
+        height: 2px;
+        background-color: #ccc;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+.upload-1 {
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    padding: 50px 30px;
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: 700;
+    color: $main-color;
+    margin-bottom: 5px;
+    margin-top: 15px;
+
+    span {
+      color: red;
+      margin-left: 5px;
+    }
+  }
+
+  input,
+  button {
+    width: 600px;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+
+    @media(max-width: 768px) {
+      width: 290px;
+      margin-bottom: 5px;
+    }
+
+    &:focus {
+      border-radius: $main-color;
+    }
+
+    &::placeholder {
+      color: $grey-color;
+      font-size: 13px;
+    }
+  }
+
+  .submit1 {
+    margin-top: 20px;
+    background-color: $main-color;
+    color: $notif-bg;
+
+    &:hover {
+      background-color: $blue-alt-color;
+    }
+  }
+}
