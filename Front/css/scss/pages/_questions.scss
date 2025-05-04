@@ -1,0 +1,147 @@
+/** @format */
+
+// ! Import Variables
+@use "../variables/colors"as *;
+@use "../variables/times"as *;
+
+// ! Import Functions
+@use "../helpers/animation"as *;
+
+// ! Import Mixins
+@use "../helpers/mixin"as *;
+
+.question-approve {
+  padding: 50px 30px 10px;
+  user-select: text;
+
+  @media(max-width: 1400px) {
+    padding: 40px 30px 10px;
+  }
+
+  @media(max-width: 1200px) {
+    padding: 30px 20px 10px;
+  }
+
+  @media(max-width: 992px) {
+    padding: 20px 20px 10px;
+  }
+
+  @media(max-width: 767px) {
+    padding: 10px;
+  }
+
+  h2 {
+    color: $main-color;
+
+    font: {
+      weight: 700;
+      size: 26px;
+    }
+
+    margin-bottom: 25px;
+
+    @media(max-width: 767px) {
+      font-size: 20px;
+      margin-left: 25px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .number-card {
+    position: relative;
+    counter-increment: number-conter;
+    padding-left: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    color: $main-color;
+    gap: 10px 0px !important;
+
+    &::before {
+      position: absolute;
+      content: counter(number-conter);
+      top: 38px;
+      left: 63px;
+      color: $main-color;
+
+      @media(max-width: 767px) {
+        left: 44px;
+        top: 26px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .answer-card {
+    background-color: white;
+    padding: 30px 40px 10px;
+    border-radius: 10px;
+    border-bottom: 2px solid #ccc;
+
+    @media(max-width: 767px) {
+      padding: 20px 20px 10px;
+    }
+  }
+
+  .question-head {
+    position: relative;
+    padding-left: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    color: $main-color;
+
+    @media(max-width: 767px) {
+      font-size: 13px;
+      padding-left: 15px;
+    }
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+    @media(max-width: 1200px) {
+      gap: 5px;
+    }
+
+    li {
+      background-color: #EBEBEB;
+      color: #2D93D3;
+      padding: 5px 30px;
+      border-radius: 5px;
+      font-weight: 550;
+      cursor: pointer;
+
+      &.active,
+      &:hover {
+        background-color: #2D93D3;
+        color: white;
+      }
+    }
+  }
+
+  .correct-answer {
+    margin-top: 20px;
+
+    p {
+      display: inline-block;
+      font-size: 17px;
+      color: $main-color;
+      font-weight: 550;
+    }
+
+    .answer {
+      display: inline-block;
+      color: white;
+      background-color: #28895E;
+      font-weight: 550;
+      padding: 4px 15px;
+      border-radius: 3px;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+  }
+}

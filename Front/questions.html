@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <!-- ! Page Title Icon -->
+  <link rel="icon" href="images/chart-line-solid.svg">
+  <!-- ! Bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- ! Main Template CSS File -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/framework.css">
+  <!-- ! File Of Animations -->
+  <link rel="stylesheet" href="css/aos.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css">
+  <!-- ! Render All Elements Normally -->
+  <link rel="stylesheet" href="css/normalize.min.css">
+  <!-- ! Font Awesome Library -->
+  <link rel="stylesheet" href="css/all.min.css">
+  <!-- ! Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap">
+  <script>
+    window.onload = function () {
+      AOS.init();
+    };
+  </script>
+</head>
+
+<body>
+  <div class="dashboard d-flex">
+    <!-- ! Start Sidebar -->
+    <div class="sidebar bg-white position-relative">
+      <div class="holder position-fixed">
+        <div class="logo-of-website">
+          <img src="images/avatar.png" alt="" class="logo" />
+          <div class="data">
+            <h1>QUERIUM</h1>
+            <h3>let's start the journey.</h3>
+          </div>
+        </div>
+        <div class="links">
+          <ul>
+            <li>
+              <a class="d-flex align-items-center" href="home.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex align-items-center" href="students.html">
+                <i class="fa-regular fa-user"></i>
+                <span>Students</span>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex align-items-center" href="upload.html">
+                <i class="fa-solid fa-upload"></i>
+                <span>Upload</span>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex align-items-center" href="approve.html">
+                <i class="fa-solid fa-thumbs-up"></i>
+                <span>Approve</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="log-out">
+          <span>
+            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #e10000;"></i>
+            <a href="">Log out</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- ! End Sidebar -->
+    <!-- ! Start Content -->
+    <div class="content">
+      <!-- ! Start Header -->
+      <div class="header bg-white d-flex justify-content-between align-items-center">
+        <div class="search position-relative">
+          <input type="text" id="keywordInput" placeholder="Search a Lecture Name, Topic" name="keyword">
+          <i class="fa-solid fa-search"></i>
+        </div>
+        <div class="profile">
+          <a>
+            <img src="images/avatar.png" alt="" />
+            <span>QUERIUM</span>
+          </a>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- ! End Header -->
+      <!-- ! Start Main Content -->
+      <div class="question-approve">
+        <div class="approved-pdfs">
+          <div class="table">
+            <h2>Questions With Answers</h2>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="number-card col-lg-6 col-md-12 col-sm-12">
+                  <div class="answer-card">
+                    <div class="question-head"> - What is the capital of france?</div>
+                    <ul>
+                      <li>A) PARIS</li>
+                      <li>B) LONDON</li>
+                      <li>C) BERLIN</li>
+                      <li>D) MADRID</li>
+                    </ul>
+                    <div class="correct-answer">
+                      <p>Correct Answer: </p>
+                      <div class="answer"> PARIS</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="number-card col-lg-6 col-md-12 col-sm-12">
+                  <div class="answer-card">
+                    <div class="question-head"> - What is the capital of france?</div>
+                    <ul>
+                      <li>A) PARIS</li>
+                      <li>B) LONDON</li>
+                      <li>C) BERLIN</li>
+                      <li>D) MADRID</li>
+                    </ul>
+                    <div class="correct-answer">
+                      <p>Correct Answer: </p>
+                      <div class="answer"> PARIS</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="number-card col-lg-6 col-md-12 col-sm-12">
+                  <div class="answer-card">
+                    <div class="question-head"> - What is the capital of france?</div>
+                    <ul>
+                      <li>A) PARIS</li>
+                      <li>B) LONDON</li>
+                      <li>C) BERLIN</li>
+                      <li>D) MADRID</li>
+                    </ul>
+                    <div class="correct-answer">
+                      <p>Correct Answer: </p>
+                      <div class="answer"> PARIS</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="number-card col-lg-6 col-md-12 col-sm-12">
+                  <div class="answer-card">
+                    <div class="question-head"> - What is the capital of france?</div>
+                    <ul>
+                      <li>A) PARIS</li>
+                      <li>B) LONDON</li>
+                      <li>C) BERLIN</li>
+                      <li>D) MADRID</li>
+                    </ul>
+                    <div class="correct-answer">
+                      <p>Correct Answer: </p>
+                      <div class="answer"> PARIS</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="number-card col-lg-6 col-md-12 col-sm-12">
+                  <div class="answer-card">
+                    <div class="question-head"> - What is the capital of france?</div>
+                    <ul>
+                      <li>A) PARIS</li>
+                      <li>B) LONDON</li>
+                      <li>C) BERLIN</li>
+                      <li>D) MADRID</li>
+                    </ul>
+                    <div class="correct-answer">
+                      <p>Correct Answer: </p>
+                      <div class="answer"> PARIS</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="number-card col-lg-6 col-md-12 col-sm-12">
+                  <div class="answer-card">
+                    <div class="question-head"> - What is the capital of france?</div>
+                    <ul>
+                      <li>A) PARIS</li>
+                      <li>B) LONDON</li>
+                      <li>C) BERLIN</li>
+                      <li>D) MADRID</li>
+                    </ul>
+                    <div class="correct-answer">
+                      <p>Correct Answer: </p>
+                      <div class="answer"> PARIS</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="number-card col-lg-6 col-md-12 col-sm-12">
+                  <div class="answer-card">
+                    <div class="question-head"> - What is the capital of france?</div>
+                    <ul>
+                      <li>A) PARIS</li>
+                      <li>B) LONDON</li>
+                      <li>C) BERLIN</li>
+                      <li>D) MADRID</li>
+                    </ul>
+                    <div class="correct-answer">
+                      <p>Correct Answer: </p>
+                      <div class="answer"> PARIS</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="number-card col-lg-6 col-md-12 col-sm-12">
+                  <div class="answer-card">
+                    <div class="question-head"> - What is the capital of france?</div>
+                    <ul>
+                      <li>A) PARIS</li>
+                      <li>B) LONDON</li>
+                      <li>C) BERLIN</li>
+                      <li>D) MADRID</li>
+                    </ul>
+                    <div class="correct-answer">
+                      <p>Correct Answer: </p>
+                      <div class="answer"> PARIS</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ! End Content -->
+  <!---------------------------------------------------------------------------->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <!-- * This Render Icon As SVG... -->
+  <script src="js/all.min.js"></script>
+  <!-- ! JavaScript File -->
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

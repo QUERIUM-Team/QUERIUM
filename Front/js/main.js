@@ -84,3 +84,21 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const answerCards = document.querySelectorAll(".answer-card");
+
+  answerCards.forEach((card) => {
+    const options = card.querySelectorAll("ul li");
+
+    options.forEach((option) => {
+      option.addEventListener("click", function () {
+        // Remove 'active' from all siblings
+        options.forEach((opt) => opt.classList.remove("active"));
+
+        // Add 'active' to clicked one
+        this.classList.add("active");
+      });
+    });
+  });
+});
+
