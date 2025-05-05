@@ -170,8 +170,10 @@
       a {
         color: $red-color;
 
-        @media (max-width: 767px) {
-          display: none;
+        span {
+          @media (max-width: 767px) {
+            display: none;
+          }
         }
       }
 

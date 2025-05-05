@@ -114,11 +114,17 @@
       border-radius: 5px;
       font-weight: 550;
       cursor: pointer;
+      text-transform: uppercase;
+
 
       &.active,
       &:hover {
         background-color: #2D93D3;
         color: white;
+      }
+
+      @media(max-width: 767px) {
+        font-size: 15px;
       }
     }
   }
@@ -131,6 +137,10 @@
       font-size: 17px;
       color: $main-color;
       font-weight: 550;
+
+      @media(max-width: 767px) {
+        font-size: 15px;
+      }
     }
 
     .answer {
@@ -142,6 +152,11 @@
       border-radius: 3px;
       font-weight: 500;
       margin-left: 10px;
+      text-transform: uppercase;
+
+      @media(max-width: 767px) {
+        font-size: 15px;
+      }
     }
   }
 }
