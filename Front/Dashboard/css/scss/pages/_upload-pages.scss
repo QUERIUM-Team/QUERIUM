@@ -1,0 +1,493 @@
+/** @format */
+
+// ! Import Variables
+@use "../variables/colors"as *;
+@use "../variables/times"as *;
+
+// ! Import Functions
+@use "../helpers/animation"as *;
+
+// ! Import Mixins
+@use "../helpers/mixin"as *;
+
+.upload-1,
+.upload-2,
+.upload-3,
+.upload-4 {
+  padding: 50px;
+
+  @media(max-width: 1400px) {
+    padding: 40px;
+  }
+
+  @media(max-width: 1200px) {
+    padding: 30px;
+  }
+
+  @media(max-width: 992px) {
+    padding: 20px;
+  }
+
+  @media(max-width: 767px) {
+    padding: 10px;
+  }
+}
+
+.container-fluid.numbers {
+  .holder {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    @media(max-width: 768px) {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .number {
+    max-width: 50px !important;
+    max-height: 50px !important;
+    padding: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid gray;
+    font-size: 18px;
+    font-weight: 700;
+    color: $main-color;
+    background-color: white;
+
+    @media(max-width: 768px) {
+      max-width: 40px !important;
+      max-height: 40px !important;
+      padding: 15px;
+      font-size: 16px;
+    }
+  }
+
+  .number1 {
+    border-color: #1F7A57;
+  }
+
+  .data {
+    margin-left: 15px;
+    font-weight: 700;
+    color: $main-color;
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    h4 {
+      font-size: 12px;
+      color: gray;
+      font-weight: 550;
+    }
+
+    @media(max-width: 768px) {
+      margin-left: 10px;
+
+      h3 {
+        font-size: 15px;
+      }
+
+      h4 {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .data1 {
+    width: 100%;
+
+    h4 {
+      position: relative;
+      width: 100%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 64%;
+        right: -3%;
+        width: calc(100% - 180px);
+        height: 2px;
+        background-color: #ccc;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .data2 {
+    width: 100%;
+
+    h4 {
+      position: relative;
+      width: 100%;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 64%;
+        right: -3%;
+        width: calc(100% - 75px);
+        height: 2px;
+        background-color: #ccc;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  padding: 50px 30px;
+
+  @media(max-width: 1400px) {
+    padding: 40px 15px;
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: 700;
+    color: $main-color;
+    margin-bottom: 5px;
+    margin-top: 15px;
+
+    span {
+      color: red;
+      margin-left: 5px;
+    }
+  }
+
+  input,
+  button,
+  .form-select {
+    width: 600px;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border: 1px solid $grey-color;
+
+    @media(max-width: 768px) {
+      width: 290px;
+      margin-bottom: 5px;
+    }
+
+    &:focus {
+      border-radius: $main-color;
+    }
+
+    &::placeholder {
+      color: $grey-color;
+      font-size: 13px;
+    }
+  }
+
+  .btn {
+    margin-top: 20px;
+    background-color: $main-color;
+    color: $notif-bg;
+
+    &:hover {
+      background-color: $blue-alt-color;
+      color: white;
+    }
+  }
+}
+
+.upload-2 {
+  .number1 {
+    border: none !important;
+
+    svg {
+      background-color: $main-color;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      padding: 15px;
+
+      @media(max-width: 768px) {
+        max-width: 40px !important;
+        max-height: 40px !important;
+        padding: 10px;
+      }
+    }
+  }
+
+  .number2 {
+    border: 2px solid #1F7A57 !important;
+  }
+
+  .data1 {
+    h4 {
+      &::before {
+        background-color: $main-color !important;
+      }
+    }
+  }
+
+  .form-select {
+    &:focus {
+      box-shadow: 0 0 0 .25rem #023336b2;
+    }
+  }
+}
+
+.upload-3 {
+
+  .number1,
+  .number2 {
+    border: none !important;
+
+    svg {
+      background-color: $main-color;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      padding: 15px;
+
+      @media(max-width: 768px) {
+        max-width: 40px !important;
+        max-height: 40px !important;
+        padding: 10px;
+      }
+    }
+  }
+
+  .number3 {
+    border: 2px solid #1F7A57 !important;
+  }
+
+  .data1 {
+    h4 {
+      &::before {
+        background-color: $main-color !important;
+      }
+    }
+  }
+
+  .data2 {
+    h4 {
+      &::before {
+        background-color: $main-color !important;
+      }
+    }
+  }
+
+  .chapter {
+    margin-top: 25px;
+    margin-bottom: 30px;
+
+    .name {
+      font-size: 22px;
+      font-weight: 700;
+      color: $main-color;
+      margin-bottom: 10px;
+
+      @media(max-width: 768px) {
+        font-size: 18px;
+        margin-left: 20px;
+      }
+    }
+
+    form {
+      border-radius: 20px;
+      background: white;
+      border: 1px solid black;
+      padding: 20px 50px !important;
+
+      @media(max-width: 768px) {
+        padding: 10px 20px !important;
+      }
+
+      input,
+      textarea {
+        border-color: black;
+        margin-bottom: 0;
+        font-size: 15px;
+        color: $main-color;
+
+        &:focus {
+          box-shadow: 0 0 0 .25rem #023336b2;
+          border: none;
+        }
+      }
+
+      textarea {
+        height: 120px;
+        padding: 10px;
+        resize: none;
+        border-radius: 10px;
+
+        &::placeholder {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .add-chapter {
+    color: $main-color;
+    font-size: 14px;
+    font-weight: 700;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+      color: $blue-alt-color;
+      text-decoration: underline;
+    }
+
+    svg {
+      border: 1px solid $main-color;
+      border-radius: 50%;
+      padding: 2px;
+      margin-right: 5px;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50px;
+      width: calc(50% - 140px);
+      height: 2px;
+      background-color: $main-color;
+      transform: translateY(-50%);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 50px;
+      width: calc(50% - 140px);
+      height: 2px;
+      background-color: $main-color;
+      transform: translateY(-50%);
+    }
+  }
+
+  .group-button {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 20px;
+
+    input,
+    .btn-cancel {
+      margin-right: 30px;
+      margin-right: 10px;
+      padding: 6px 35px;
+      background-color: $main-color;
+      color: $notif-bg;
+      font-weight: 600;
+
+      &:hover {
+        background-color: $blue-alt-color;
+      }
+    }
+
+    .btn-cancel {
+      background-color: white;
+      color: $main-color;
+      border: 1px solid $main-color;
+
+      &:hover {
+        background-color: $main-color;
+        color: white;
+      }
+    }
+  }
+}
+
+.upload-4 {
+
+  .number1,
+  .number2,
+  .number3 {
+    border: none !important;
+
+    svg {
+      background-color: $main-color;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      padding: 15px;
+
+      @media(max-width: 768px) {
+        max-width: 40px !important;
+        max-height: 40px !important;
+        padding: 10px;
+      }
+    }
+  }
+
+  .data1 {
+    h4 {
+      &::before {
+        background-color: $main-color !important;
+      }
+    }
+  }
+
+  .data2 {
+    h4 {
+      &::before {
+        background-color: $main-color !important;
+      }
+    }
+  }
+
+  .done {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 30px;
+    height: 60vh;
+
+    @media(max-width: 1400px) {
+      padding: 40px 15px;
+    }
+
+    svg {
+      color: $main-color;
+      width: 100px;
+      height: 100px;
+    }
+
+    h3 {
+      font-size: 52px;
+      font-weight: 800;
+      color: $main-color;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: gray;
+      font-weight: 550;
+      margin-bottom: 20px;
+    }
+  }
+}
