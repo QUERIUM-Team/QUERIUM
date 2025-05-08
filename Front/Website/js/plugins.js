@@ -90,19 +90,16 @@ const header = document.querySelector("header");
 const img = document.querySelector("header img");
 const currentPage = window.location.pathname;
 
-if (currentPage.includes("/landing2.html")) {
+if (currentPage.includes("/index.html")) {
   header.classList.add("dark");
-  img.src = "assets/images/logo-black.png";
 }
 
 window.addEventListener("scroll", () => {
   if (window.scrollY >= 50) {
     header.classList.add("scroll");
-    img.src = "assets/images/logo-black.png";
   } else {
     header.classList.remove("scroll");
-    if (!currentPage.includes("/landing2.html")) {
-      img.src = "assets/images/logo.png";
+    if (!currentPage.includes("/index.html")) {
     }
   }
 });
