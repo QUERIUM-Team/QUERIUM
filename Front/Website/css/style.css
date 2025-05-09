@@ -667,7 +667,13 @@ header nav .navbar-toggler .toggler-icon {
 }
 @media (max-width: 992px) {
   header nav .navbar-toggler .toggler-icon {
-    background-color: black;
+    background-color: white !important;
+  }
+  header.scroll nav .navbar-toggler .toggler-icon {
+    background-color: black !important;
+  }
+  header.dark1 nav .navbar-toggler .toggler-icon {
+    background-color: black !important;
   }
 }
 header nav .navbar-toggler:focus {
@@ -1212,6 +1218,16 @@ footer .links {
 footer .links .logo {
   padding-bottom: 27px;
 }
+footer .logo a {
+  display: flex;
+  align-items: center;
+}
+footer .logo a span {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  padding-left: 10px;
+}
 footer .logo a img {
   width: 55px;
 }
@@ -1334,7 +1350,17 @@ footer .copyright .con p span {
 .services2,
 .services3 {
   padding: 30px 15px 80px;
+
+  img {
+    width: 60px;
+    margin-bottom: 20px;
+  }
+
+  .service {
+    padding: 30px 20px;
+  }
 }
+
 .feature .service,
 .services1 .service,
 .services2 .service,
