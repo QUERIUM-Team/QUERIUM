@@ -1772,6 +1772,9 @@ footer .copyright .con p span {
   transition: 0.5s;
   transform: scale(1.1);
 }
+.team .lead:nth-of-type(3) .photo img {
+  width: 80% !important;
+}
 .team .lead .photo::before {
   content: "";
   position: absolute;
