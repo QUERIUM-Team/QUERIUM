@@ -187,3 +187,92 @@ if (window.location.pathname.includes("questions")) {
       ).innerHTML = `<p style="color:red">Failed to load questions. Please try again later.</p>`;
     });
 }
+
+// ! Function to approve a student
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("https://querium13.runasp.net/api/admin/students") // Replace with your API URL
+    .then((response) => response.json())
+    .then((data) => {
+      let tableBody = document.getElementById("pdfTableBody");
+      tableBody.innerHTML = ""; // Clear any existing content
+
+      data.forEach((student) => {
+        // Determine the status class
+        let statusClass = "";
+        if (student.status === "Pending") {
+          statusClass = "pending";
+        } else if (student.status === "Rejected") {
+          statusClass = "rejected";
+        } else if (student.status === "Approved") {
+          statusClass = "approved";
+        }
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+                  <td>${student.fullName}</td>
+                  <td>${student.email}</td>
+                  <td>${student.universityIDCard}</td>
+                  <td>${student.nationalIDCard}</td>
+                  <td>${new Date(student.createdAt).toLocaleString()}</td>
+                  <td class="${statusClass}">${student.status}</td>
+                  <td>
+                      <button class="btn btn-success approve-btn" onclick="approveStudent('${
+                        student.universityIDCard
+                      }')">
+                          <i class="fa-solid fa-check"></i>
+                      </button>
+                      <button class="btn btn-danger reject-btn" onclick="rejectStudent('${
+                        student.universityIDCard
+                      }')">
+                          <i class="fa-solid fa-xmark"></i>
+                      </button>
+                  </td>
+              `;
+        tableBody.appendChild(row);
+      });
+    })
+    .catch((error) => console.error("Error fetching student data:", error));
+});
+
+// ! Function to approve a student
+function approveStudent(universityIDCard) {
+  const url = `https://querium13.runasp.net/api/admin/approve-student/${universityIDCard}`;
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer YOUR_TOKEN", // Replace with your token if needed
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Approval Successful:", data);
+      location.reload(); // Reload the page to see the updated status
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("An error occurred while approving the student.");
+    });
+}
+
+// ! Function to reject a student
+function rejectStudent(universityIDCard) {
+  const url = `https://querium13.runasp.net/api/admin/reject-student/${universityIDCard}`;
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer YOUR_TOKEN", // Replace with your token if needed
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Rejection Successful:", data);
+      location.reload(); // Reload the page to see the updated status
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("An error occurred while rejecting the student.");
+    });
+}

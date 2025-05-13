@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     itemSelector: ".mega",
     layoutMode: "fitRows",
   });
-  
+
   const buttons = document.querySelectorAll(".main-content .buttons button");
   buttons.forEach((button) => {
     button.addEventListener("click", function () {
@@ -44,52 +44,52 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const tableBody = document.getElementById("pdfTableBody");
+// document.addEventListener("DOMContentLoaded", function () {
+//   const tableBody = document.getElementById("pdfTableBody");
 
-  tableBody.addEventListener("click", function (event) {
-    const target = event.target;
-    const row = target.closest("tr");
+//   tableBody.addEventListener("click", function (event) {
+//     const target = event.target;
+//     const row = target.closest("tr");
 
-    if (!row) return;
+//     if (!row) return;
 
-    const statusSpan = row.querySelector(".status");
+//     const statusSpan = row.querySelector(".status");
 
-    if (target.closest(".approve-btn")) {
-      const currentStatus = statusSpan.classList.contains("approved")
-        ? "approved"
-        : statusSpan.classList.contains("pending")
-        ? "pending"
-        : statusSpan.classList.contains("rejected")
-        ? "rejected"
-        : statusSpan.classList.contains("completed")
-        ? "completed"
-        : "";
+//     if (target.closest(".approve-btn")) {
+//       const currentStatus = statusSpan.classList.contains("approved")
+//         ? "approved"
+//         : statusSpan.classList.contains("pending")
+//         ? "pending"
+//         : statusSpan.classList.contains("rejected")
+//         ? "rejected"
+//         : statusSpan.classList.contains("completed")
+//         ? "completed"
+//         : "";
 
-      const isNowApproved = statusSpan.classList.contains("approved");
+//       const isNowApproved = statusSpan.classList.contains("approved");
 
-      if (!isNowApproved) {
-        row.dataset.lastStatus = currentStatus;
+//       if (!isNowApproved) {
+//         row.dataset.lastStatus = currentStatus;
 
-        statusSpan.textContent = "Approved";
-        statusSpan.className = "status approved";
-      } else {
-        const lastStatus = row.dataset.lastStatus || "pending";
-        statusSpan.textContent = capitalizeFirstLetter(lastStatus);
-        statusSpan.className = "status " + lastStatus;
-        row.style.backgroundColor = "";
-      }
-    }
+//         statusSpan.textContent = "Approved";
+//         statusSpan.className = "status approved";
+//       } else {
+//         const lastStatus = row.dataset.lastStatus || "pending";
+//         statusSpan.textContent = capitalizeFirstLetter(lastStatus);
+//         statusSpan.className = "status " + lastStatus;
+//         row.style.backgroundColor = "";
+//       }
+//     }
 
-    if (target.closest(".reject-btn")) {
-      row.remove();
-    }
-  });
+//     if (target.closest(".reject-btn")) {
+//       row.remove();
+//     }
+//   });
 
-  function capitalizeFirstLetter(text) {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-  }
-});
+//   function capitalizeFirstLetter(text) {
+//     return text.charAt(0).toUpperCase() + text.slice(1);
+//   }
+// });
 
 document.addEventListener("DOMContentLoaded", function () {
   const answerCards = document.querySelectorAll(".answer-card");

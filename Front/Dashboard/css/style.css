@@ -1316,9 +1316,6 @@ body.dark::-webkit-scrollbar-track {
 .content-approve .table .approved {
   color: green;
 }
-.content-approve .table .completed {
-  color: #00b894;
-}
 @media (max-width: 767px) {
   .content-approve .table {
     margin-top: 10px;
