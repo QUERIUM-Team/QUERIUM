@@ -283,3 +283,58 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((error) => console.error("Error fetching student data:", error));
 });
+
+// ! Make a Fetch Request To Get All Subjects
+document.addEventListener("DOMContentLoaded", function () {
+  async function fetchSubjects(year, semester) {
+    try {
+      const subjectSelect = document.getElementById("subjectSelect");
+      if (!subjectSelect) {
+        console.error("Subject select element not found.");
+        return;
+      }
+
+      const response = await fetch(
+        "https://querium13.runasp.net/api/Admin/subjects/search",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            AcademicYear: parseInt(year),
+            Semester: semester,
+          }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Network error");
+
+      const subjects = await response.json();
+
+      subjectSelect.innerHTML = `<option value="" disabled selected>Open this select menu</option>`; // reset
+
+      subjects.forEach((subject) => {
+        const option = document.createElement("option");
+        option.value = subject.id;
+        option.textContent = subject.title;
+        subjectSelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Error fetching subjects:", error);
+      alert("Failed to load subjects. Please try again.");
+    }
+  }
+
+  function tryFetch() {
+    const year = document.getElementById("academicYear").value;
+    const semester = document.getElementById("semester").value;
+
+    if (year && semester) {
+      fetchSubjects(year, semester);
+    }
+  }
+
+  document.getElementById("academicYear").addEventListener("change", tryFetch);
+  document.getElementById("semester").addEventListener("change", tryFetch);
+});

@@ -428,18 +428,18 @@ body.dark::-webkit-scrollbar-track {
   color: #f44336;
 }
 @media (max-width: 767px) {
-  .sidebar .log-out span a span {
-    display: none;
+  .sidebar .log-out span span {
+    display: none !important;
   }
 }
-.sidebar .log-out span a:hover {
+.sidebar .log-out span:hover {
   color: #f44336 !important;
 }
 .sidebar .log-out:hover svg {
   animation: left-right 0.6s infinite;
   -webkit-animation: left-right 0.6s infinite;
 }
-.sidebar .log-out:hover a {
+.sidebar .log-out:hover {
   color: red;
 }
 
@@ -1817,6 +1817,7 @@ form .btn:hover {
 .upload-2 .data1 h4::before {
   background-color: #023336 !important;
 }
+.upload-1 .form-select:focus,
 .upload-2 .form-select:focus {
   box-shadow: 0 0 0 0.25rem rgba(2, 51, 54, 0.6980392157);
 }
