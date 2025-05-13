@@ -63,12 +63,10 @@
             </li>
           </ul>
         </div>
-        <div class="log-out">
+        <div class="log-out" onclick="logout()" style="color: #e10000; cursor: pointer;">
           <span>
-            <a href="log-out.html">
-              <i class="fa-solid fa-arrow-right-from-bracket" style="color: #e10000;"></i>
-              <span>Log out</span>
-            </a>
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Log out</span>
           </span>
         </div>
       </div>
@@ -225,7 +223,7 @@
       </div>
     </div>
   </div>
-  </div>
+  <div id="logout-message" class="logout-message"></div>
   <!-- ! End Content -->
   <!---------------------------------------------------------------------------->
   <script src="js/bootstrap.bundle.min.js"></script>
@@ -234,6 +232,7 @@
   <!-- ! JavaScript File -->
   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/API.js"></script>
 </body>
 
 </html>
