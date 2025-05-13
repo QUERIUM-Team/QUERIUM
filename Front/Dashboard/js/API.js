@@ -9,7 +9,7 @@ async function login(event) {
 
   try {
     const response = await fetch(
-      "http://querium13.runasp.net/api/Admin/login",
+      "https://querium13.runasp.net/api/Admin/login",
       {
         method: "POST",
         headers: {
@@ -42,7 +42,7 @@ async function logout() {
 
   try {
     const response = await fetch(
-      "http://querium13.runasp.net/api/Admin/logout",
+      "https://querium13.runasp.net/api/Admin/logout",
       {
         method: "POST",
         headers: {
@@ -73,7 +73,7 @@ async function logout() {
 if (window.location.pathname.includes("questions")) {
   // 🔽 All your JS goes here
   const mode = "first";
-  const apiUrl = "http://querium13.runasp.net/api/FileUpload/questions";
+  const apiUrl = "https://querium13.runasp.net/api/FileUpload/questions";
 
   fetch(apiUrl)
     .then((response) => {
@@ -133,7 +133,7 @@ if (window.location.pathname.includes("questions")) {
   if (window.location.pathname.includes("questionsai")) {
     mode = "last";
   }
-  const apiUrl = "http://querium13.runasp.net/api/FileUpload/questions";
+  const apiUrl = "https://querium13.runasp.net/api/FileUpload/questions";
 
   fetch(apiUrl)
     .then((response) => {
