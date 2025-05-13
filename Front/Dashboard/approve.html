@@ -92,7 +92,7 @@
       <!-- </div> -->
       <!-- ! End Header -->
       <!-- ! Start Main Content -->
-      <div class="content-approve content-approves">
+      <div class="content-approve">
         <div class="approved-pdfs">
           <div class="table">
             <h2>Approve Uploaded PDFs</h2>
@@ -108,7 +108,38 @@
                   </tr>
                 </thead>
                 <tbody id="pdfTableBodys">
-                  <!-- Dynamic content will be inserted here -->
+                  <tr>
+                    <td>John Doe</td>
+                    <td>Computer-Vision.pdf</td>
+                    <td>2023-10-01 14:30</td>
+                    <td>
+                      <span class="status approved">Approved</span>
+                    </td>
+                    <td>
+                      <button class="btn btn-success approve-btn">
+                        <i class="fa-solid fa-check"></i>
+                      </button>
+                      <button class="btn btn-danger reject-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Jane Smith</td>
+                    <td>Machine-Learning.pdf</td>
+                    <td>2023-10-02 10:15</td>
+                    <td>
+                      <span class="status pending">Pending</span>
+                    </td>
+                    <td>
+                      <button class="btn btn-success approve-btn">
+                        <i class="fa-solid fa-check"></i>
+                      </button>
+                      <button class="btn btn-danger reject-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                      </button>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
