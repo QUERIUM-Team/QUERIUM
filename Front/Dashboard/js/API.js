@@ -9,7 +9,7 @@ async function login(event) {
 
   try {
     const response = await fetch(
-      "https://querium13.runasp.net/api/Admin/login",
+      "https://querium3.runasp.net/api/Admin/login",
       {
         method: "POST",
         headers: {
@@ -38,7 +38,7 @@ async function login(event) {
 async function logout() {
   try {
     const response = await fetch(
-      "https://querium13.runasp.net/api/Admin/logout",
+      "https://querium3.runasp.net/api/Admin/logout",
       {
         method: "POST",
         headers: {
@@ -62,7 +62,7 @@ async function logout() {
 if (window.location.pathname.includes("questions")) {
   // 🔽 All your JS goes here
   const mode = "first";
-  const apiUrl = "https://querium13.runasp.net/api/FileUpload/questions";
+  const apiUrl = "https://querium3.runasp.net/api/FileUpload/questions";
 
   fetch(apiUrl)
     .then((response) => {
@@ -122,7 +122,7 @@ if (window.location.pathname.includes("questions")) {
   if (window.location.pathname.includes("questionsai")) {
     mode = "last";
   }
-  const apiUrl = "https://querium13.runasp.net/api/FileUpload/questions";
+  const apiUrl = "https://querium3.runasp.net/api/FileUpload/questions";
 
   fetch(apiUrl)
     .then((response) => {
@@ -178,7 +178,7 @@ if (window.location.pathname.includes("questions")) {
 }
 // ! Function to approve a student
 function approveStudent(universityIDCard) {
-  const url = `https://querium13.runasp.net/api/admin/approve-student/${universityIDCard}`;
+  const url = `https://querium3.runasp.net/api/admin/approve-student/${universityIDCard}`;
   fetch(url, {
     method: "POST",
     headers: {
@@ -208,7 +208,7 @@ function approveStudent(universityIDCard) {
 
 // ! Function to reject a student
 function rejectStudent(universityIDCard) {
-  const url = `https://querium13.runasp.net/api/admin/reject-student/${universityIDCard}`;
+  const url = `https://querium3.runasp.net/api/admin/reject-student/${universityIDCard}`;
   fetch(url, {
     method: "POST",
     headers: {
@@ -238,7 +238,7 @@ function rejectStudent(universityIDCard) {
 
 // ! Function to display students' data
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("https://querium13.runasp.net/api/admin/students") // Replace with your API URL
+  fetch("https://querium3.runasp.net/api/admin/students") // Replace with your API URL
     .then((response) => response.json())
     .then((data) => {
       let tableBody = document.getElementById("pdfTableBody");
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const response = await fetch(
-        "https://querium13.runasp.net/api/Admin/subjects/search",
+        "https://querium3.runasp.net/api/Admin/subjects/search",
         {
           method: "POST",
           headers: {
