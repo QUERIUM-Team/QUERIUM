@@ -1,29 +1,5 @@
 /** @format */
 
-// ! Make a PopUp To A Lastest News Photos.
-let img = document.querySelectorAll(".news .data .item img");
-img.forEach((ele) => {
-  ele.addEventListener("click", (e) => {
-    let div = document.createElement("div");
-    div.className = "popup-overlay";
-
-    let popUp = document.createElement("div");
-    popUp.className = "popUp";
-
-    let popUpImg = document.createElement("img");
-    popUpImg.src = ele.src;
-
-    div.addEventListener("click", function () {
-      popUp.remove();
-      div.remove();
-    });
-
-    document.body.appendChild(popUp);
-    document.body.appendChild(div);
-    popUp.appendChild(popUpImg);
-  });
-});
-
 document.addEventListener("DOMContentLoaded", function () {
   const portfolioIsotope = new Isotope(".files-content", {
     itemSelector: ".mega",
@@ -45,53 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const tableBody = document.getElementById("pdfTableBodys");
-
-  tableBody.addEventListener("click", function (event) {
-    const target = event.target;
-    const row = target.closest("tr");
-
-    if (!row) return;
-
-    const statusSpan = row.querySelector(".status");
-
-    if (target.closest(".approve-btn")) {
-      const currentStatus = statusSpan.classList.contains("approved")
-        ? "approved"
-        : statusSpan.classList.contains("pending")
-        ? "pending"
-        : statusSpan.classList.contains("rejected")
-        ? "rejected"
-        : statusSpan.classList.contains("completed")
-        ? "completed"
-        : "";
-
-      const isNowApproved = statusSpan.classList.contains("approved");
-
-      if (!isNowApproved) {
-        row.dataset.lastStatus = currentStatus;
-
-        statusSpan.textContent = "Approved";
-        statusSpan.className = "status approved";
-      } else {
-        const lastStatus = row.dataset.lastStatus || "pending";
-        statusSpan.textContent = capitalizeFirstLetter(lastStatus);
-        statusSpan.className = "status " + lastStatus;
-        row.style.backgroundColor = "";
-      }
-    }
-
-    if (target.closest(".reject-btn")) {
-      row.remove();
-    }
-  });
-
-  function capitalizeFirstLetter(text) {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-  }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
   const answerCards = document.querySelectorAll(".answer-card");
 
   answerCards.forEach((card) => {
@@ -106,150 +35,191 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
 document.addEventListener("DOMContentLoaded", function () {
   const container = document.getElementById("chaptersContainer");
   const addBtn = document.querySelector(".add-chapter");
   const cancelBtn = document.querySelector(".btn-cancel");
   const confirmBtn = document.querySelector(".btn-submit");
+  const steps = document.querySelectorAll("[class^='upload-']");
 
-  function updateCancelButtonState() {
+  // Update chapter numbering
+  function updateChapterNumbers() {
     const chapters = container.querySelectorAll(".chapter");
+    chapters.forEach((chapter, i) => {
+      chapter.querySelector(".number").textContent = i + 1;
+    });
+  }
 
-    if (chapters.length > 1) {
-      cancelBtn.disabled = false;
+  // Create a fresh empty chapter element
+  function createEmptyChapter(number) {
+    const div = document.createElement("div");
+    div.classList.add("chapter");
+
+    div.innerHTML = `
+      <p class="name" style="position: relative;">
+        Chapter
+        <span class="number">${number}</span>
+        <button type="button" class="btn-delete-chapter btn btn-danger rounded-circle"
+          style="position: absolute; right: 10px; margin-left: 10px; cursor: pointer; padding: 5px 10px;">X</button>
+      </p>
+      <form action="" class="form3 upload3">
+        <div class="mb-3">
+          <label>Chapter Title <span class="required">*</span></label>
+          <input class="form-control" type="text" placeholder="Chapter Title" aria-label="chapter title">
+        </div>
+        <div class="mb-3">
+          <label>Chapter Description <span class="required">*</span></label>
+          <textarea class="form-control" rows="3" placeholder="Chapter Description"></textarea>
+        </div>
+        <label>Chapter File <span class="required">*</span></label>
+        <div class="input-group mb-3">
+          <input type="file" class="form-control">
+        </div>
+      </form>
+    `;
+
+    return div;
+  }
+
+  // Add chapter
+  addBtn.addEventListener("click", () => {
+    const chapters = container.querySelectorAll(".chapter");
+    let newChapter;
+    if (chapters.length === 0) {
+      newChapter = createEmptyChapter(1);
+    } else {
+      const lastChapter = chapters[chapters.length - 1];
+      newChapter = lastChapter.cloneNode(true);
+      // Clear inputs
+      newChapter
+        .querySelectorAll("input[type='text'], textarea")
+        .forEach((el) => (el.value = ""));
+      newChapter.querySelector("input[type='file']").value = "";
+    }
+    container.appendChild(newChapter);
+    updateChapterNumbers();
+  });
+
+  // Delete chapter with event delegation
+  container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("btn-delete-chapter")) {
+      const chapters = container.querySelectorAll(".chapter");
+      if (chapters.length === 1) {
+        Swal.fire("Warning", "You must have at least one chapter!", "warning");
+        return;
+      }
+      const chapterToDelete = e.target.closest(".chapter");
+      chapterToDelete.remove();
+      updateChapterNumbers();
+    }
+  });
+
+  // Cancel button - delete all chapters with confirmation, then add fresh empty chapter
+  cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This will delete ALL chapters and their data!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete all!",
+      cancelButtonText: "No, keep them",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Remove all chapters inside container
+        while (container.firstChild) {
+          container.removeChild(container.firstChild);
+        }
+        // Add fresh empty chapter so user can start again
+        container.appendChild(createEmptyChapter(1));
+        Swal.fire(
+          "Deleted!",
+          "All chapters and their data have been deleted.",
+          "success"
+        );
+      }
+    });
+  });
+
+  // Confirm button - validate all inputs and alert if invalid
+  confirmBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const chapters = container.querySelectorAll(".chapter");
+    if (chapters.length === 0) {
+      Swal.fire("Error", "No chapters to submit!", "error");
       return;
     }
 
-    const first = chapters[0];
-    const hasInput =
-      first.querySelector("input[type='text']").value.trim() !== "" ||
-      first.querySelector("textarea").value.trim() !== "" ||
-      first.querySelector("input[type='file']").files.length > 0;
+    let valid = true;
 
-    cancelBtn.disabled = !hasInput;
-  }
+    chapters.forEach((chapter) => {
+      const titleInput = chapter.querySelector("input[type='text']");
+      const descriptionInput = chapter.querySelector("textarea");
+      const fileInput = chapter.querySelector("input[type='file']");
 
-  addBtn.addEventListener("click", function () {
-    const chapters = container.querySelectorAll(".chapter");
-    const lastChapter = chapters[chapters.length - 1];
-    const newChapter = lastChapter.cloneNode(true);
-    const newNumber = chapters.length + 1;
+      const title = titleInput.value.trim();
+      const description = descriptionInput.value.trim();
+      const hasFile = fileInput.files.length > 0;
 
-    newChapter.querySelector(".number").textContent = newNumber;
-    newChapter.querySelector("input[type='text']").value = "";
-    newChapter.querySelector("textarea").value = "";
-    newChapter.querySelector("input[type='file']").value = "";
+      // Add / remove validation classes
+      if (!title) {
+        valid = false;
+        titleInput.classList.add("is-invalid");
+      } else {
+        titleInput.classList.remove("is-invalid");
+      }
+      if (!description) {
+        valid = false;
+        descriptionInput.classList.add("is-invalid");
+      } else {
+        descriptionInput.classList.remove("is-invalid");
+      }
+      if (!hasFile) {
+        valid = false;
+        fileInput.classList.add("is-invalid");
+      } else {
+        fileInput.classList.remove("is-invalid");
+      }
+    });
 
-    container.appendChild(newChapter);
-    updateCancelButtonState();
-  });
-
-  cancelBtn.addEventListener("click", function () {
-    const chapters = container.querySelectorAll(".chapter");
-    const last = chapters[chapters.length - 1];
-
-    const title = last.querySelector("input[type='text']");
-    const desc = last.querySelector("textarea");
-    const file = last.querySelector("input[type='file']");
-
-    const hasData =
-      title.value.trim() !== "" ||
-      desc.value.trim() !== "" ||
-      file.files.length > 0;
-
-    if (hasData) {
-      title.value = "";
-      desc.value = "";
-      file.value = "";
-    } else if (chapters.length > 1) {
-      last.remove();
+    if (!valid) {
+      Swal.fire(
+        "Error",
+        "Please fill all fields and upload files for every chapter.",
+        "error"
+      );
+      return;
     }
 
-    updateCancelButtonState();
+    // If valid, process data and move to upload-4 step
+    const data = Array.from(chapters).map((chapter, i) => ({
+      chapter: i + 1,
+      title: chapter.querySelector("input[type='text']").value.trim(),
+      description: chapter.querySelector("textarea").value.trim(),
+      fileName:
+        chapter.querySelector("input[type='file']").files[0]?.name || "No file",
+    }));
+
+    console.log("Submitting data:", data);
+
+    // Hide all upload steps and show upload-4
+    steps.forEach((step) => (step.style.display = "none"));
+    const lastStep = document.querySelector(".upload-4");
+    if (lastStep) lastStep.style.display = "block";
+
+    Swal.fire("Success", "Data submitted successfully!", "success");
   });
 
-  confirmBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    const data = [];
-    const chapters = container.querySelectorAll(".chapter");
-
-    chapters.forEach((chapter, i) => {
-      const title = chapter.querySelector("input[type='text']").value;
-      const description = chapter.querySelector("textarea").value;
-      const fileInput = chapter.querySelector("input[type='file']");
-      const file = fileInput.files[0] ? fileInput.files[0].name : "No file";
-
-      data.push({
-        chapter: i + 1,
-        title,
-        description,
-        file,
-      });
-    });
-
-    console.log("Submitted Data:", data);
-    alert("Data sent successfully! Check console for details.");
-
-    chapters.forEach((chapter, i) => {
-      if (i === 0) {
-        chapter.querySelector("input[type='text']").value = "";
-        chapter.querySelector("textarea").value = "";
-        chapter.querySelector("input[type='file']").value = "";
-        chapter.querySelector(".number").textContent = "1";
-      } else {
-        chapter.remove();
-      }
-    });
-
-    updateCancelButtonState();
-  });
-
-  container.addEventListener("input", updateCancelButtonState);
-  container.addEventListener("change", updateCancelButtonState);
-
-  updateCancelButtonState();
+  // Initialize with one empty chapter if none present
+  if (container.querySelectorAll(".chapter").length === 0) {
+    container.appendChild(createEmptyChapter(1));
+  }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const steps = document.querySelectorAll("[class^='upload-']");
-  const nextButtons = document.querySelectorAll("input[type='submit']");
-
-  steps.forEach((step, i) => {
-    step.style.display = i === 0 ? "block" : "none";
-  });
-
-  nextButtons.forEach((btn, index) => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      const currentStep = steps[index];
-      const inputs = currentStep.querySelectorAll("input, textarea, select");
-      let valid = true;
-
-      inputs.forEach((input) => {
-        if (
-          input.hasAttribute("required") &&
-          ((input.type === "file" && input.files.length === 0) ||
-            (input.type !== "file" && input.value.trim() === ""))
-        ) {
-          valid = false;
-          input.classList.add("is-invalid");
-        } else {
-          input.classList.remove("is-invalid");
-        }
-      });
-
-      if (!valid) {
-        alert("Please complete all required fields.");
-        return;
-      }
-
-      steps.forEach((step) => (step.style.display = "none"));
-      if (index + 1 < steps.length) {
-        steps[index + 1].style.display = "block";
-      }
-    });
-  });
+window.addEventListener("load", () => {
+  const savedEmail = localStorage.getItem("userEmail");
+  if (savedEmail) {
+    document.getElementById("emailInput").value = savedEmail;
+  }
 });

@@ -1,20 +1,348 @@
 /** @format */
 
-// ! Login Function.
+// ✅ Common Config
+const API_BASE = "https://querium.premiumasp.net/api";
+
+// ✅ Utility: Show Upload Step
+function showStep(step) {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.querySelector(`.upload-${i}`);
+    if (el) el.style.display = i === step ? "block" : "none";
+  }
+}
+
+// ✅ Utility: Fetch Subjects
+async function fetchSubjects(year, semester) {
+  try {
+    const subjectSelect = document.getElementById("subjectSelect2");
+    if (!subjectSelect) return;
+
+    const response = await fetch(`${API_BASE}/Admin/subjects/search`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        academicYear: parseInt(year),
+        semester:
+          semester.charAt(0).toUpperCase() + semester.slice(1).toLowerCase(),
+      }),
+    });
+
+    const data = await response.json();
+    subjectSelect.innerHTML = '<option value="">Select a subject</option>';
+    data.data.forEach((subject) => {
+      const option = document.createElement("option");
+      option.value = subject.id;
+      option.textContent = subject.title;
+      subjectSelect.appendChild(option);
+    });
+  } catch (err) {
+    Swal.fire({
+      icon: "error",
+      title: "Failed to Load Subjects",
+      text: "Unable to fetch subjects. Please try again later.",
+    });
+  }
+}
+
+// ✅ Page-Specific Logic
+document.addEventListener("DOMContentLoaded", function () {
+  // ✅ Questions Page
+  if (window.location.pathname.includes("questions")) {
+    const mode = window.location.pathname.includes("questionsai")
+      ? "last"
+      : "first";
+
+    fetch(`${API_BASE}/FileUpload/questions`)
+      .then((res) => res.json())
+      .then((data) => {
+        const container = document.querySelector(".row");
+        if (!Array.isArray(data.questions)) throw new Error();
+        container.innerHTML = "";
+
+        const questions =
+          mode === "first"
+            ? data.questions.slice(0, 20)
+            : data.questions.slice(-20);
+        const labels = ["A", "B", "C", "D"];
+
+        questions.forEach((q) => {
+          const card = document.createElement("div");
+          card.className = "number-card col-lg-6 col-md-12 col-sm-12";
+          card.innerHTML = `
+            <div class="answer-card">
+              <div class="question-head"> - ${q.questionText}</div>
+              <ul>${q.answers
+                .map((a, i) => `<li>${labels[i]}) ${a}</li>`)
+                .join("")}</ul>
+              <div class="correct-answer">
+                <p>Correct Answer:</p>
+                <div class="answer">${q.correctAnswer}</div>
+              </div>
+            </div>`;
+          container.appendChild(card);
+        });
+      })
+      .catch(() => {
+        document.querySelector(
+          ".row"
+        ).innerHTML = `<p style="color:red">Failed to load questions. Please try again later.</p>`;
+      });
+  }
+
+  // ✅ Students Table
+  fetch(`${API_BASE}/admin/students`)
+    .then((res) => res.json())
+    .then((students) => {
+      const tableBody = document.getElementById("pdfTableBody");
+      tableBody.innerHTML = "";
+
+      students.forEach((student) => {
+        const row = document.createElement("tr");
+        row.setAttribute("data-university-id", student.universityIDCard);
+        row.innerHTML = `
+          <td>${student.fullName}</td>
+          <td>${student.email}</td>
+          <td>${student.universityIDCard}</td>
+          <td>${student.nationalIDCard}</td>
+          <td>${new Date(student.createdAt).toLocaleString()}</td>
+          <td class="status ${student.status.toLowerCase()}">${
+          student.status
+        }</td>
+          <td>
+            <button class="btn btn-success approve-btn" onclick="approveStudent('${
+              student.universityIDCard
+            }')">
+              <i class="fa-solid fa-check"></i>
+            </button>
+            <button class="btn btn-danger reject-btn" onclick="rejectStudent('${
+              student.universityIDCard
+            }')">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </td>`;
+        tableBody.appendChild(row);
+      });
+    })
+    .catch((err) => console.error("Error fetching students:", err));
+
+  // ✅ Upload Wizard Logic
+  showStep(1);
+
+  document.getElementById("form1111")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const year = document.getElementById("academicYear").value;
+    const semester = document.getElementById("semester").value;
+    if (!year || !semester) {
+      return Swal.fire({
+        icon: "warning",
+        title: "Fill All Fields",
+        text: "Please select both Academic Year and Semester.",
+      });
+    }
+    await fetchSubjects(year, semester);
+    showStep(2);
+  });
+
+  document.getElementById("form2222")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const subjectId = document.getElementById("subjectSelect2").value;
+    if (!subjectId) {
+      return Swal.fire({
+        icon: "warning",
+        title: "No Subject Selected",
+        text: "Please choose a subject before proceeding.",
+      });
+    }
+    showStep(3);
+  });
+
+  document.getElementById("form3")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const subjectId = document.getElementById("subjectSelect2").value;
+    const chapterName = document.getElementById("chapter").value.trim();
+
+    if (!chapterName) {
+      return Swal.fire({
+        icon: "warning",
+        title: "Chapter Required",
+        text: "Please enter the chapter name.",
+      });
+    }
+
+    const formData = new FormData();
+    formData.append("subjectId", subjectId);
+    formData.append("chapterName", chapterName);
+
+    try {
+      const res = await fetch("/api/chapters", {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) throw new Error();
+
+      Swal.fire({
+        icon: "success",
+        title: "Chapter Added",
+        text: "The chapter was added successfully!",
+      }).then(() => showStep(1));
+    } catch {
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: "Something went wrong while adding the chapter.",
+      });
+    }
+  });
+});
+
+// ✅ Approve / Reject Logic
+function updateStudentStatus(universityIDCard, action) {
+  fetch(`${API_BASE}/admin/${action}-student/${universityIDCard}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer YOUR_TOKEN", // Replace this token!
+    },
+  })
+    .then((res) => res.json())
+    .then(() => {
+      const row = document.querySelector(
+        `tr[data-university-id="${universityIDCard}"]`
+      );
+      const statusCell = row.querySelector(".status");
+      statusCell.textContent = action === "approve" ? "Approved" : "Rejected";
+      statusCell.className = `status ${
+        action === "approve" ? "approved" : "rejected"
+      }`;
+    })
+    .catch(() => {
+      Swal.fire({
+        icon: "error",
+        title: "Action Failed",
+        text: `Could not ${action} student. Try again.`,
+      });
+    });
+}
+
+function approveStudent(id) {
+  updateStudentStatus(id, "approve");
+}
+
+function rejectStudent(id) {
+  updateStudentStatus(id, "reject");
+}
+
+document.getElementById("form1111")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const year = document.getElementById("academicYear");
+  const semester = document.getElementById("semester");
+
+  let valid = true;
+
+  if (!year.value) {
+    year.classList.add("is-invalid");
+    valid = false;
+  }
+  if (!semester.value) {
+    semester.classList.add("is-invalid");
+    valid = false;
+  }
+
+  if (!valid) {
+    return Swal.fire({
+      icon: "warning",
+      title: "Fill All Fields",
+      text: "Please select both Academic Year and Semester.",
+    });
+  }
+
+  await fetchSubjects(year.value, semester.value);
+  showStep(2);
+});
+
+// Remove is-invalid when user types/selects
+document.getElementById("academicYear")?.addEventListener("input", (e) => {
+  e.target.classList.remove("is-invalid");
+});
+document.getElementById("semester")?.addEventListener("input", (e) => {
+  e.target.classList.remove("is-invalid");
+});
+
+document.getElementById("form2222")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const subjectSelect = document.getElementById("subjectSelect2");
+
+  if (!subjectSelect.value) {
+    subjectSelect.classList.add("is-invalid");
+    return Swal.fire({
+      icon: "warning",
+      title: "No Subject Selected",
+      text: "Please choose a subject before proceeding.",
+    });
+  }
+
+  showStep(3);
+});
+
+document.getElementById("subjectSelect2")?.addEventListener("input", (e) => {
+  e.target.classList.remove("is-invalid");
+});
+
+document.getElementById("form3")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const chapterInput = document.getElementById("chapter");
+
+  if (!chapterInput.value.trim()) {
+    chapterInput.classList.add("is-invalid");
+    return Swal.fire({
+      icon: "warning",
+      title: "Chapter Required",
+      text: "Please enter the chapter name.",
+    });
+  }
+
+  const formData = new FormData();
+  formData.append("subjectId", document.getElementById("subjectSelect2").value);
+  formData.append("chapterName", chapterInput.value.trim());
+
+  try {
+    const res = await fetch("/api/chapters", {
+      method: "POST",
+      body: formData,
+    });
+    if (!res.ok) throw new Error();
+
+    Swal.fire({
+      icon: "success",
+      title: "Chapter Added",
+      text: "The chapter was added successfully!",
+    }).then(() => showStep(1));
+  } catch {
+    Swal.fire({
+      icon: "error",
+      title: "Failed",
+      text: "Something went wrong while adding the chapter.",
+    });
+  }
+});
+
+document.getElementById("chapter")?.addEventListener("input", (e) => {
+  e.target.classList.remove("is-invalid");
+});
+
+// ! Login Function
 async function login(event) {
-  event.preventDefault(); // Prevent the default form submission
+  event.preventDefault();
 
   const email = document.getElementById("emailInput").value;
   const password = document.getElementById("passwordInput").value;
 
   try {
     const response = await fetch(
-      "https://querium3.runasp.net/api/Admin/login",
+      "https://querium.premiumasp.net/api/Admin/login",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       }
     );
@@ -22,319 +350,43 @@ async function login(event) {
     const data = await response.json();
 
     if (data.message === "Login successful") {
-      window.location.href = "home.html";
+      // Save login data to localStorage
+      // Assuming your API returns a token or user info, save it
+      localStorage.setItem("userEmail", email);
+      // You could also save token if available, for example: localStorage.setItem("token", data.token);
+
+      Swal.fire("Success", "Login successful!", "success").then(() => {
+        window.location.href = "home.html";
+      });
     } else {
-      document.getElementById("error").textContent =
-        "Login failed. Please check your credentials.";
+      Swal.fire("Error", "Login failed. Check your credentials.", "error");
     }
   } catch (error) {
     console.error("Error:", error);
-    document.getElementById("error").textContent =
-      "An error occurred. Please try again.";
+    Swal.fire("Error", "An error occurred. Please try again.", "error");
   }
 }
 
-// ! Logout Function.
+// ! Logout Function
 async function logout() {
   try {
     const response = await fetch(
-      "https://querium3.runasp.net/api/Admin/logout",
+      "https://querium.premiumasp.net/api/Admin/logout",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       }
     );
 
     const data = await response.json();
 
     if (data.message === "Admin logout successful") {
-      setTimeout(() => {
+      Swal.fire("Success", "Logged out successfully", "success").then(() => {
         window.location.href = "log-out.html";
-      }, 200); // redirect after 0.2s
-    } else {
+      });
     }
-  } catch (error) {}
-}
-
-// ! Get All Questions Function.
-if (window.location.pathname.includes("questions")) {
-  // 🔽 All your JS goes here
-  const mode = "first";
-  const apiUrl = "https://querium3.runasp.net/api/FileUpload/questions";
-
-  fetch(apiUrl)
-    .then((response) => {
-      console.log("API response status:", response.status);
-      return response.json();
-    })
-    .then((data) => {
-      console.log("API data:", data);
-      const questionsArray = data.questions;
-
-      if (!Array.isArray(questionsArray))
-        throw new Error("Questions array not found");
-
-      const container = document.querySelector(".row");
-      container.innerHTML = "";
-
-      const questionsToRender =
-        mode === "first"
-          ? questionsArray.slice(0, 20)
-          : questionsArray.slice(-20);
-
-      questionsToRender.forEach((q) => {
-        const correctAnswer = q.correctAnswer;
-        const correctIndex = q.answers.findIndex((a) => a === correctAnswer);
-
-        const labels = ["A", "B", "C", "D"];
-
-        const card = document.createElement("div");
-        card.className = "number-card col-lg-6 col-md-12 col-sm-12";
-        card.innerHTML = `
-          <div class="answer-card">
-            <div class="question-head"> - ${q.questionText}</div>
-            <ul>
-              ${q.answers
-                .map((answer, idx) => `<li>${labels[idx]}) ${answer}</li>`)
-                .join("")}
-            </ul>
-            <div class="correct-answer">
-              <p>Correct Answer:</p>
-              <div class="answer">${correctAnswer}</div>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    })
-    .catch((err) => {
-      console.error("Error fetching questions:", err);
-      document.querySelector(
-        ".row"
-      ).innerHTML = `<p style="color:red">Failed to load questions. Please try again later.</p>`;
-    });
-}
-
-if (window.location.pathname.includes("questions")) {
-  var mode = "first";
-  if (window.location.pathname.includes("questionsai")) {
-    mode = "last";
+  } catch (error) {
+    console.error("Logout error:", error);
+    Swal.fire("Error", "Failed to logout. Try again.", "error");
   }
-  const apiUrl = "https://querium3.runasp.net/api/FileUpload/questions";
-
-  fetch(apiUrl)
-    .then((response) => {
-      console.log("API response status:", response.status);
-      return response.json();
-    })
-    .then((data) => {
-      console.log("API data:", data);
-      const questionsArray = data.questions;
-
-      if (!Array.isArray(questionsArray))
-        throw new Error("Questions array not found");
-
-      const container = document.querySelector(".row");
-      container.innerHTML = "";
-
-      const questionsToRender =
-        mode === "first"
-          ? questionsArray.slice(0, 20)
-          : questionsArray.slice(-20);
-
-      questionsToRender.forEach((q) => {
-        const correctAnswer = q.correctAnswer;
-        const correctIndex = q.answers.findIndex((a) => a === correctAnswer);
-
-        const labels = ["A", "B", "C", "D"];
-
-        const card = document.createElement("div");
-        card.className = "number-card col-lg-6 col-md-12 col-sm-12";
-        card.innerHTML = `
-          <div class="answer-card">
-            <div class="question-head"> - ${q.questionText}</div>
-            <ul>
-              ${q.answers
-                .map((answer, idx) => `<li>${labels[idx]}) ${answer}</li>`)
-                .join("")}
-            </ul>
-            <div class="correct-answer">
-              <p>Correct Answer:</p>
-              <div class="answer">${correctAnswer}</div>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    })
-    .catch((err) => {
-      console.error("Error fetching questions:", err);
-      document.querySelector(
-        ".row"
-      ).innerHTML = `<p style="color:red">Failed to load questions. Please try again later.</p>`;
-    });
 }
-// ! Function to approve a student
-function approveStudent(universityIDCard) {
-  const url = `https://querium3.runasp.net/api/admin/approve-student/${universityIDCard}`;
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer YOUR_TOKEN", // Replace with your token if needed
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Approval Successful:", data);
-
-      // Find the row with the student using their universityIDCard
-      const row = document.querySelector(
-        `tr[data-university-id="${universityIDCard}"]`
-      );
-      const statusCell = row.querySelector(".status"); // Find the status cell
-
-      // Update the status text and class
-      statusCell.textContent = "Approved";
-      statusCell.className = "status approved"; // Add the class for approved status
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert("An error occurred while approving the student.");
-    });
-}
-
-// ! Function to reject a student
-function rejectStudent(universityIDCard) {
-  const url = `https://querium3.runasp.net/api/admin/reject-student/${universityIDCard}`;
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer YOUR_TOKEN", // Replace with your token if needed
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Rejection Successful:", data);
-
-      // Find the row with the student using their universityIDCard
-      const row = document.querySelector(
-        `tr[data-university-id="${universityIDCard}"]`
-      );
-      const statusCell = row.querySelector(".status"); // Find the status cell
-
-      // Update the status text and class
-      statusCell.textContent = "Rejected";
-      statusCell.className = "status rejected"; // Add the class for rejected status
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert("An error occurred while rejecting the student.");
-    });
-}
-
-// ! Function to display students' data
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("https://querium3.runasp.net/api/admin/students") // Replace with your API URL
-    .then((response) => response.json())
-    .then((data) => {
-      let tableBody = document.getElementById("pdfTableBody");
-      tableBody.innerHTML = ""; // Clear any existing content
-
-      data.forEach((student) => {
-        // Determine the status class
-        let statusClass = "";
-        if (student.status === "Pending") {
-          statusClass = "pending";
-        } else if (student.status === "Rejected") {
-          statusClass = "rejected";
-        } else if (student.status === "Approved") {
-          statusClass = "approved";
-        }
-
-        const row = document.createElement("tr");
-        row.setAttribute("data-university-id", student.universityIDCard); // Add universityIDCard as a data attribute
-
-        row.innerHTML = `
-                  <td>${student.fullName}</td>
-                  <td>${student.email}</td>
-                  <td>${student.universityIDCard}</td>
-                  <td>${student.nationalIDCard}</td>
-                  <td>${new Date(student.createdAt).toLocaleString()}</td>
-                  <td class="status ${statusClass}">${student.status}</td>
-                  <td>
-                      <button class="btn btn-success approve-btn" onclick="approveStudent('${
-                        student.universityIDCard
-                      }')">
-                          <i class="fa-solid fa-check"></i>
-                      </button>
-                      <button class="btn btn-danger reject-btn" onclick="rejectStudent('${
-                        student.universityIDCard
-                      }')">
-                          <i class="fa-solid fa-xmark"></i>
-                      </button>
-                  </td>
-              `;
-        tableBody.appendChild(row);
-      });
-    })
-    .catch((error) => console.error("Error fetching student data:", error));
-});
-
-// ! Make a Fetch Request To Get All Subjects
-document.addEventListener("DOMContentLoaded", function () {
-  async function fetchSubjects(year, semester) {
-    try {
-      const subjectSelect = document.getElementById("subjectSelect");
-      if (!subjectSelect) {
-        console.error("Subject select element not found.");
-        return;
-      }
-
-      const response = await fetch(
-        "https://querium3.runasp.net/api/Admin/subjects/search",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            AcademicYear: parseInt(year),
-            Semester: semester,
-          }),
-        }
-      );
-
-      if (!response.ok) throw new Error("Network error");
-
-      const subjects = await response.json();
-
-      subjectSelect.innerHTML = `<option value="" disabled selected>Open this select menu</option>`; // reset
-
-      subjects.forEach((subject) => {
-        const option = document.createElement("option");
-        option.value = subject.id;
-        option.textContent = subject.title;
-        subjectSelect.appendChild(option);
-      });
-    } catch (error) {
-      console.error("Error fetching subjects:", error);
-      alert("Failed to load subjects. Please try again.");
-    }
-  }
-
-  function tryFetch() {
-    const year = document.getElementById("academicYear").value;
-    const semester = document.getElementById("semester").value;
-
-    if (year && semester) {
-      fetchSubjects(year, semester);
-    }
-  }
-
-  document.getElementById("academicYear").addEventListener("change", tryFetch);
-  document.getElementById("semester").addEventListener("change", tryFetch);
-});

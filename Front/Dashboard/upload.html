@@ -115,7 +115,7 @@
           </div>
         </div>
 
-        <form action="" class="form1 upload1">
+        <form id="form1111" class="form1111 upload1111">
           <label for="academicYear">Academic Year <span class="required">*</span></label>
           <select id="academicYear" class="form-select" required>
             <option value="" disabled selected>Select Year</option>
@@ -128,8 +128,8 @@
           <label for="semester">Semester <span class="required">*</span></label>
           <select id="semester" class="form-select" required>
             <option value="" disabled selected>Select Semester</option>
-            <option value="One">One</option>
-            <option value="Two">Two</option>
+            <option value="one">One</option>
+            <option value="two">Two</option>
           </select>
 
           <input type="submit" value="Next" class="btn submit1 next-btn">
@@ -165,13 +165,10 @@
           </div>
         </div>
 
-        <form action="" class="form2 upload2">
-          <label for="Academic subject">Subject Name
-            <span class="required">*</span>
-          </label>
-          <select id="subjectSelect" class="form-select" required>
+        <form id="form2222" class="form2222 upload2222">
+          <label for="subjectSelect2">Subject Name <span class="required">*</span></label>
+          <select id="subjectSelect2" class="form-select" required>
             <option value="" disabled selected>Open this select menu</option>
-            <!-- Subjects will be inserted here -->
           </select>
 
           <input type="submit" value="Next" class="btn submit2 next-btn">
@@ -210,9 +207,11 @@
         </div>
         <div id="chaptersContainer">
           <div class="chapter">
-            <p class="name">
+            <p class="name" style="position: relative;">
               Chapter
               <span class="number">1</span>
+              <button type="button" class="btn-delete-chapter btn btn-danger rounded-circle"
+                style="position: absolute; right: 10px; margin-left: 10px; cursor: pointer; padding: 5px 10px;">X</button>
             </p>
             <form action="" class="form3 upload3">
               <div class="mb-3">
@@ -247,7 +246,7 @@
         </div>
 
         <div class="group-button">
-          <input type="reset" value="Cancel" class="btn btn-cancel next-btn">
+          <input type="reset" value="Reset" class="btn btn-cancel next-btn">
           <input type="submit" value="Confirm" class="btn btn-submit submit submit3 next-btn">
         </div>
       </div>
@@ -298,6 +297,7 @@
   <!-- * This Render Icon As SVG... -->
   <script src="js/all.min.js"></script>
   <!-- ! JavaScript File -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/API.js"></script>

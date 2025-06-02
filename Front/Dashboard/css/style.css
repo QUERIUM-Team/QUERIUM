@@ -2223,3 +2223,7 @@ div:where(.swal2-container)
   button:where(.swal2-styled):where(.swal2-confirm):hover {
   background-color: color-mix(in srgb, #055358, black 10%) !important;
 }
+
+.is-invalid {
+  border: 2px solid #dc3545 !important; /* Bootstrap danger red */
+}
